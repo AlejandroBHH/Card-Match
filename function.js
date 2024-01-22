@@ -51,7 +51,7 @@ function lockCards() {
 //main function
 
 function turn(id) {
-  if ((time = false)) {
+  if (time == false) {
     countTime();
     time = true;
   }
@@ -66,7 +66,6 @@ function turn(id) {
     card2 = document.getElementById(id);
     secondResult = numbers[id];
     card2.innerHTML = `<img src="./img/${secondResult}.png">`;
-
     card2.disabled = true;
     movements++;
     showMovements.innerHTML = `Movimientos: ${movements}`;
@@ -80,7 +79,7 @@ function turn(id) {
         clearInterval(rtimerid);
         showHits.innerHTML = `Aciertos: ${hits}`;
         showMovements.innerHTML = `Movimientos: ${movements}`;
-        showTime.innerHTML = `Fantástico: ${firstimer - time} segundos`;
+        showTime.innerHTML = `Fantástico: ${firstimer - timer} segundos`;
         winAudio.play();
       }
     } else {
