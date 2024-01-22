@@ -23,9 +23,10 @@ let showHits = document.getElementById("hit");
 let showTime = document.getElementById("remainingtime");
 
 let numbers = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
-numbers = numbers.sort(() => {
-  return 0.5 - Math.random;
-});
+for (let i = numbers.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+}
 
 function countTime() {
   rtimerid = setInterval(() => {
