@@ -10,6 +10,12 @@ let timer = 50;
 let firstimer = 50;
 let rtimerid = null;
 
+let winAudio = new Audio("./sounds/win.wav");
+let loseAudio = new Audio("./sounds/lose.wav");
+let clickAudio = new Audio("./sounds/click.wav");
+let rightAudio = new Audio("./sounds/right.wav");
+let wrongAudio = new Audio("./sounds/wrong.wav");
+
 let showMovements = document.getElementById("movements");
 
 let showHits = document.getElementById("hit");
@@ -29,6 +35,7 @@ function countTime() {
       clearInterval(rtimerid);
       lockCards();
       //audio
+      loseAudio.play();
     }
   }, 1000);
 }
@@ -53,11 +60,13 @@ function turn(id) {
     card1 = document.getElementById(id);
     firstResult = numbers[id];
     card1.innerHTML = `<img src="./img/${firstResult}.png">`;
+    clickAudio.play();
     card1.disabled = true;
   } else if (uncoveredCard == 2) {
     card2 = document.getElementById(id);
     secondResult = numbers[id];
     card2.innerHTML = `<img src="./img/${secondResult}.png">`;
+
     card2.disabled = true;
     movements++;
     showMovements.innerHTML = `Movimientos: ${movements}`;
@@ -65,12 +74,14 @@ function turn(id) {
     if (firstResult == secondResult) {
       uncoveredCard = 0;
       hits++;
+      rightAudio.play();
       showHits.innerHTML = `Aciertos: ${hits}`;
       if (hits == 8) {
         clearInterval(rtimerid);
         showHits.innerHTML = `Aciertos: ${hits}`;
         showMovements.innerHTML = `Movimientos: ${movements}`;
-        showTime.innerHTML = `Fantástico: ${firstimer - timer} segundos`;
+        showTime.innerHTML = `Fantástico: ${firstimer - time} segundos`;
+        winAudio.play();
       }
     } else {
       setTimeout(() => {
@@ -79,6 +90,7 @@ function turn(id) {
         card1.disabled = false;
         card2.disabled = false;
         uncoveredCard = 0;
+        wrongAudio.play();
       }, 700);
     }
   }
